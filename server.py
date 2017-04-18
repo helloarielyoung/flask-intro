@@ -30,8 +30,8 @@ def start_here():
 def say_hello():
     """Say hello and prompt for user's name."""
 
-    return """
-    <!doctype html>
+    result1 = """
+        <!doctype html>
     <html>
       <head>
         <title>Hi There!</title>
@@ -42,12 +42,13 @@ def say_hello():
           What's your name? <input type="text" name="person">
           <br>
           Choose your compliment:
-          <select name="compliment">
-              <option value="awesome">Awesome</option>
-              <option value="terrific">Terrific</option>
-              <option value="fantastic">Fantastic</option>
-              <option value="neato">Neato</option>
-          </select>
+          <select name="compliment">"""
+
+    result2 = ""
+    for compliment in AWESOMENESS:
+        result2.append("<option value=/" %s /"> %s </option>" % (compliment, compliment.capitalize()))
+
+    result3 = """          </select>
           <br><br>
           <input type="submit" value="Submit">
         </form>
@@ -62,6 +63,7 @@ def say_hello():
     </html>
     """
 
+    return result1 + result2 + result3
 
 @app.route('/greet')
 def greet_person():
