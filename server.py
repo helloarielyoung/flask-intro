@@ -13,13 +13,17 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
+magic = ['I turn you into a frog', 'you will fall in love!', 'you will be alert!!!!!!!']
+
 
 @app.route('/')
 def start_here():
     """Home page."""
 
     return """<!doctype html><html>Hi! This is the home page.<br> 
-    <a href="/hello">Click here</a> to go to hello!</html>"""
+    <a href="/hello">Click here</a> to go to hello!<br>
+    <a href="/magic">Click here for magic!</a>
+    </html>"""
 
 
 @app.route('/hello')
@@ -37,7 +41,7 @@ def say_hello():
         <form action="/greet">
           What's your name? <input type="text" name="person">
           <br>
-          Choose your compliment:  
+          Choose your compliment:
           <select name="compliment">
               <option value="awesome">Awesome</option>
               <option value="terrific">Terrific</option>
@@ -45,6 +49,13 @@ def say_hello():
               <option value="neato">Neato</option>
           </select>
           <br><br>
+          <input type="submit" value="Submit">
+        </form>
+        <hr>
+        <form action="/magic">
+          <h1>Get some magic</h1>
+          What's your name? <input type="text" name="person">
+          <br>
           <input type="submit" value="Submit">
         </form>
       </body>
@@ -67,10 +78,31 @@ def greet_person():
         <title>A Compliment</title>
       </head>
       <body>
-        Hi, {player}! I think you're {compliment}!
+        Hi, {player}! I think you're {compliment}!<br>
+        <h1> A little magic!</h1>
+        Hi, {player} {spell}!
       </body>
     </html>
-    """.format(player=player, compliment=compliment)
+    """.format(player=player, compliment=compliment, spell=choice(magic))
+
+
+@app.route('/magic')
+def magic_person():
+    """Cast a spell on user"""
+
+    player = request.args.get("person")
+
+    return """
+    <!doctype html>
+    <html>
+      <head>
+        <title>A little magic</title>
+      </head>
+      <body>
+        Hi, {}, {}!
+      </body>
+    </html>
+    """.format(player, choice(magic))
 
 
 if __name__ == '__main__':
